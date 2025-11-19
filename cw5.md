@@ -38,7 +38,6 @@
     mają przynajmniej jedną dużą literę,
     mają przynajmniej jedną cyfrę,
     mają przynajmniej jeden znak specjalny (!@#$%^&*()),
-    podpowiedź: możesz używać polecenie grep wielokrotnie.
     
 `grep -E '^.{8,}' hasla.txt | grep '[a-z]' | grep '[A-Z]' | grep '[!@#$%^&*()]' `
 
