@@ -42,4 +42,4 @@
 
 **10 Zmień losowo kolejność wierszy z danymi o irysach i zapisz je w nowym pliku CSV z nagłówkiem.**
 
- `(head -n 1 iris.csv; tail -n +2 iris.csv | sort -R) > irisrandom.csv`
+ `{ head -n 1 iris.csv; tail -n +2 iris.csv | shuf; } > irisrandom.csv`
