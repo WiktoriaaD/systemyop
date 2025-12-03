@@ -3,25 +3,20 @@
 
 get_cpu() {
 
-    model=$(grep -m1 "model name" /proc/cpuinfo | cut -d: -f2 | sed 's/^[ \t]*//')
+    model=$(grep -m1 "model name" /proc/cpuinfo | cut -d: -f2)
     echo -e "CPU: $model"
 }
 
 get_ram() {
 
     read total used <<< $(free -m | awk '/^Mem:/{print $2, $3}')
-
-    if [ "$total" -gt 0 ]; then
-        percent=$(( 100 * used / total ))
-    else
-        percent=0
-    fi
-    
+    # -m - w megabajtach
+    percent=$(( 100 * used / total ))
+    # \033[34m to niebieski/fioletowy, \033[31m to czerwony, \033[0m to reset
     echo -e "RAM: \033[34m$used\033[0m / \033[34m$total\033[0m MiB (\033[31m${percent}%\033[0m used)"
 }
 
 get_load() {
-
     load=$(cut -d " " -f 1-3 /proc/loadavg)
     echo -e "Load: $load"
 }
@@ -38,10 +33,8 @@ get_kernel() {
 }
 
 get_gpu() {
-    gpu=$(lspci | grep -iE "vga|3d" | head -n 1 | cut -d: -f3 | sed 's/^[ \t]*//')
-
-    gpu_colored=$(echo "$gpu" | sed -E 's/([0-9]+)/\\033[34m\1\\033[0m/g')
-    echo -e "GPU: $gpu_colored"
+    gpu=$(lspci | grep -iE "vga|3d" | cut -d: -f3)
+    echo -e "GPU: $gpu"
 }
 
 get_user() {
@@ -60,12 +53,12 @@ get_processes() {
 
 get_threads() {
 
-    count=$(ps -eLf --no-headers | wc -l)
+    count=$(ps -eL --no-headers | wc -l)
     echo -e "Threads: \033[34m$count\033[0m"
 }
 
 get_ip() {
-
+    #tr translate zamienia znaki
     ips=$(ip -4 -o addr show | awk '{print $4}' | tr '\n' ' ')
     echo -e "IP: $ips"
 }
