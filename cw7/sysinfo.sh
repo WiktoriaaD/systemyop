@@ -78,6 +78,7 @@ get_internet() {
     fi
 }
 
+exit_status=0
 
 if [ $# -eq 0 ]; then
     get_cpu
@@ -111,6 +112,11 @@ else
             ip) get_ip ;;
             dns) get_dns ;;
             internet) get_internet ;;
+            *) 
+                # Jeśli argument jest nieznany:
+                echo "Błąd: Nieznany argument '$arg'" >&2
+                exit_status=1 
+                ;;
 
         esac
     done
