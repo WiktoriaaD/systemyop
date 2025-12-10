@@ -80,7 +80,7 @@ for DIR in "$@"; do
         decomp_time=$(echo "$end - $start" | bc -l)
 
         #Wypisanie wyniku
-        OUT=C printf "%s\t%.6f\t%.6f\t%s%%\n" "$PROG" "$comp_time" "$decomp_time" "$ratio"
+        LC_NUMERIC=C printf "%s\t%.6f\t%.6f\t%s%%\n" "$PROG" "$comp_time" "$decomp_time" "$ratio"
 
         rm -f "$COMPRESSED_FILE" 
         rm -rf "$TMP_DIR/out"
