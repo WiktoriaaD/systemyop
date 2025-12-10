@@ -1,0 +1,20 @@
+#!/bin/bash
+
+#mkdir -p /tmp/data/random
+#mkdir -p /tmp/data/empty
+#mkdir -p /tmp/data/various
+
+
+for i in {1..5}; do
+    dd if=/dev/urandom of=/tmp/data/random/file_$i bs=1M count=5 status=none
+done
+
+for i in {1..5}; do
+    dd if=/dev/zero of=/tmp/data/empty/file_$i bs=1M count=5 status=none
+done
+
+
+wget -O /tmp/silesia.zip http://sun.aei.polsl.pl/~sdeor/corpus/silesia.zip
+unzip /tmp/silesia.zip -d /tmp/data/various
+rm /tmp/silesia.zip
+
